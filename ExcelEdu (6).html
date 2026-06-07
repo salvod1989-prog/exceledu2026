@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ExcelEdu</title>
+<style>
+/* ===================================
+   EXCELEDU — DESIGN SYSTEM PREMIUM
+   Ispirato a Microsoft Word Style
+=================================== */
+:root {
+  /* Palette Excel/Green */
+  --green: #1e7a45;
+  --green-light: #e6f4ec;
+  --green-dark: #145a32;
+  --green-mid: #27ae60;
+
+  /* Palette Blue (accento) */
+  --blue: #2b579a;
+  --blue-light: #4472c4;
+  --blue-lighter: #5b9bd5;
+  --blue-dark: #1f3864;
+
+  /* Semantici */
+  --red: #c00000;
+  --red-light: #fee2e2;
+  --amber: #d97706;
+  --amber-light: #fef3c7;
+
+  /* Grigi professionali */
+  --gray-50: #fafbfc;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+
+  /* Ombre */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+  --shadow: 0 4px 6px -1px rgba(0,0,0,.08), 0 2px 4px -1px rgba(0,0,0,.04);
+  --shadow-md: 0 6px 16px -2px rgba(0,0,0,.10), 0 2px 6px -2px rgba(0,0,0,.05);
+  --shadow-lg: 0 10px 25px -5px rgba(0,0,0,.12), 0 4px 8px -3px rgba(0,0,0,.06);
+  --shadow-xl: 0 20px 40px -8px rgba(0,0,0,.15), 0 8px 16px -4px rgba(0,0,0,.08);
+  --shadow-green: 0 8px 20px -4px rgba(30,122,69,.30);
+  --shadow-blue: 0 8px 20px -4px rgba(43,87,154,.30);
+
+  /* Transizioni */
+  --ease: cubic-bezier(.4,0,.2,1);
+  --trans: 220ms var(--ease);
+  --trans-slow: 380ms var(--ease);
+  --trans-bounce: 500ms cubic-bezier(.68,-.55,.265,1.55);
+
+  /* Spaziatura & radii */
+  --radius-sm: 6px;
+  --radius: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--gray-800);
+  background: linear-gradient(135deg, #eef2f7 0%, #e8edf5 100%);
+  min-height: 100vh;
+}
+
+/* ── SCREEN / LAYOUT ── */
+.screen { display:none; min-height:100vh; align-items:center; justify-content:center; padding:20px; }
+.screen.active { display:flex; }
+.hidden { display:none !important; }
+
+/* ── LOGIN CARD ── */
+.card {
+  background: #fff;
+  max-width: 400px;
+  width: 100%;
+  padding: 36px 32px;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid rgba(255,255,255,.8);
+  animation: slideDown .5s var(--ease) both;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content:'';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--green-dark), var(--green), var(--blue-light));
+  background-size: 200% 100%;
+  animation: gradBar 3s ease infinite;
+}
+@keyframes gradBar {
+  0%,100%{background-position:0%} 50%{background-position:100%}
+}
+@keyframes slideDown {
+  from { opacity:0; transform:translateY(-24px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+.card h2 {
+  margin: 0 0 4px;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--green-dark);
+  letter-spacing: -.02em;
+}
+.card > p { margin:0 0 20px; color:var(--gray-500); font-size:14px; }
+
+/* ── INPUTS ── */
+input, textarea, select {
+  width: 100%;
+  padding: 11px 14px;
+  margin-top: 8px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--gray-200);
+  font-size: 14px;
+  font-family: var(--font);
+  outline: none;
+  transition: border var(--trans), box-shadow var(--trans);
+  background: var(--gray-50);
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(30,122,69,.12);
+  background: #fff;
+}
+textarea { resize: vertical; }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 12px 18px;
+  margin-top: 10px;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: all var(--trans);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: .01em;
+}
+.btn::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:rgba(255,255,255,.12);
+  opacity:0;
+  transition:opacity var(--trans);
+}
+.btn:hover::after { opacity:1; }
+.btn:active { transform:scale(.97); }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--green-dark), var(--green));
+  color:#fff;
+  box-shadow: var(--shadow-green);
+}
+.btn-primary:hover { box-shadow: 0 12px 28px -4px rgba(30,122,69,.40); transform:translateY(-1px); }
+
+.btn-secondary {
+  background: var(--gray-100);
+  color: var(--gray-700);
+  border: 1.5px solid var(--gray-200);
+}
+.btn-secondary:hover { background:var(--gray-200); }
+
+.btn-danger {
+  background: var(--red-light);
+  color: var(--red);
+  border: 1.5px solid #fca5a5;
+}
+.btn-danger:hover { background:#fca5a5; color:#7f1d1d; }
+
+.btn-amber {
+  background: var(--amber-light);
+  color: var(--amber);
+  border: 1.5px solid #fde68a;
+}
+.btn-amber:hover { background:#fde68a; }
+
+.btn-blue {
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  color: #fff;
+  box-shadow: var(--shadow-blue);
+}
+.btn-blue:hover { box-shadow:0 12px 28px -4px rgba(43,87,154,.40); transform:translateY(-1px); }
+
+.btn-sm { padding:6px 12px; font-size:12px; width:auto; margin-top:0; }
+
+small, .small { font-size:12px; color:var(--gray-400); }
+#msgLogin { margin-top:8px; font-size:13px; color:var(--red); font-weight:600; }
+
+/* ── APP STUDENTE ── */
+#app { padding:20px; max-width:980px; margin:0 auto; }
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  padding: 14px 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  border-bottom: 3px solid var(--green);
+}
+.topbar-left b { font-size:17px; font-weight:800; color:var(--green-dark); }
+
+/* ── TABS ── */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-top: 14px;
+  background: #fff;
+  padding: 5px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.tab {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--gray-600);
+  transition: all var(--trans);
+  font-family: var(--font);
+}
+.tab:hover:not(.active) { background: var(--gray-100); color:var(--gray-800); }
+.tab.active {
+  background: linear-gradient(135deg, var(--green-dark), var(--green));
+  color: #fff;
+  box-shadow: var(--shadow-green);
+}
+
+.tab-panel { display:none; }
+.tab-panel.active { display:block; animation: fadeUp .35s var(--ease) both; }
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ── SECTION CARDS ── */
+.section {
+  margin-top: 16px;
+  background: #fff;
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(0,0,0,.04);
+}
+.section > h3 {
+  font-size:16px;
+  font-weight:700;
+  color:var(--green-dark);
+  margin-bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* ── MODULE GRID ── */
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; }
+
+.mod {
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 16px;
+  transition: all var(--trans);
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.mod::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; bottom:0;
+  width:3px;
+  background: linear-gradient(180deg, var(--green), var(--green-dark));
+  border-radius:3px 0 0 3px;
+  opacity:0;
+  transition: opacity var(--trans);
+}
+.mod:hover { border-color:var(--green); box-shadow:var(--shadow-md); transform:translateY(-2px); }
+.mod:hover::before { opacity:1; }
+.mod h3 { margin:0 0 6px; font-size:15px; font-weight:700; }
+.mod p  { margin:0 0 10px; font-size:13px; color:var(--gray-600); }
+
+/* ── BADGES ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .03em;
+}
+.badge-ok  { background:var(--green-light); color:var(--green-dark); }
+.badge-todo{ background:var(--gray-100); color:var(--gray-600); }
+
+/* ── QUIZ ── */
+.q {
+  margin: 12px 0;
+  padding: 14px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius);
+  background: var(--gray-50);
+}
+.q strong { font-size:14px; font-weight:700; color:var(--gray-800); }
+.opt {
+  display: block;
+  margin-top: 8px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 10px;
+  cursor: pointer;
+  background: #fff;
+  transition: all var(--trans);
+  font-size: 14px;
+  font-family: var(--font);
+}
+.opt:hover { background:var(--green-light); border-color:var(--green); }
+.opt.sel   { background:var(--green-light); border-color:var(--green); font-weight:600; box-shadow:0 0 0 2px rgba(30,122,69,.15); }
+.res { margin-top:8px; font-weight:700; font-size:14px; }
+.ok { color:var(--green-dark); }
+.no { color:var(--red); }
+
+/* ── PROGRESS BAR ── */
+.bar {
+  height: 12px;
+  background: var(--gray-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,.06);
+}
+.fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green-dark), var(--green), var(--green-mid));
+  background-size: 200% 100%;
+  border-radius: var(--radius-full);
+  transition: width .5s var(--ease);
+  animation: progShine 2.5s ease infinite;
+  position: relative;
+}
+.fill::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);
+  animation:gloss 2s ease infinite;
+}
+@keyframes progShine { 0%,100%{background-position:0%} 50%{background-position:100%} }
+@keyframes gloss { 0%{transform:translateX(-100%)} 100%{transform:translateX(200%)} }
+
+.quiz-box { display:none; }
+.quiz-box.open { display:block; animation:fadeUp .35s var(--ease) both; }
+
+/* ── TABLE ── */
+table { width:100%; border-collapse:collapse; margin-top:10px; font-size:13px; }
+th, td { border:1px solid var(--gray-200); padding:9px 12px; text-align:left; vertical-align:top; }
+th { background:linear-gradient(135deg,var(--gray-50),var(--gray-100)); font-weight:700; color:var(--gray-700); font-size:12px; text-transform:uppercase; letter-spacing:.04em; }
+tr:hover td { background:var(--gray-50); }
+
+/* ── ARGOMENTI (STUDENTE) ── */
+.arg-card {
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all var(--trans);
+  background: #fff;
+}
+.arg-card:hover { border-color:var(--blue-lighter); box-shadow:var(--shadow-md); transform:translateX(3px); }
+.arg-card-header { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+.arg-card h4 { margin:0 0 4px; font-size:15px; font-weight:700; color:var(--gray-800); }
+.arg-card .arg-cat {
+  display:inline-block;
+  padding:2px 10px;
+  border-radius:var(--radius-full);
+  font-size:11px; font-weight:700;
+  background:linear-gradient(135deg,var(--blue-dark),var(--blue-light));
+  color:#fff;
+  white-space:nowrap;
+}
+.arg-card .arg-preview { font-size:13px; color:var(--gray-600); margin-top:6px; line-height:1.5; }
+.arg-body { display:none; margin-top:12px; padding-top:12px; border-top:1px solid var(--gray-200); font-size:14px; line-height:1.75; color:var(--gray-800); white-space:pre-wrap; }
+.arg-body.open { display:block; animation:fadeUp .25s var(--ease) both; }
+.arg-toggle { font-size:12px; color:var(--blue-light); font-weight:700; white-space:nowrap; background:none; border:none; cursor:pointer; padding:0; transition:color var(--trans); }
+.arg-toggle:hover { color:var(--blue-dark); }
+
+/* ── PANNELLO DOCENTE ── */
+#teacher { padding:20px; max-width:1060px; margin:0 auto; }
+
+.teacher-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, var(--green-dark), var(--green));
+  padding: 20px 24px;
+  border-radius: var(--radius);
+  color: #fff;
+  box-shadow: var(--shadow-green);
+  position: relative;
+  overflow: hidden;
+}
+.teacher-header::before {
+  content:'';
+  position:absolute;
+  top:-50%; right:-5%;
+  width:300px; height:300px;
+  background:radial-gradient(circle,rgba(255,255,255,.12) 0%,transparent 70%);
+  border-radius:50%;
+}
+.teacher-header h2 { margin:0; font-size:20px; font-weight:800; position:relative; z-index:1; }
+.teacher-header small { opacity:.8; position:relative; z-index:1; }
+
+.teacher-tabs {
+  display:flex; gap:4px; margin-top:14px;
+  background:#fff; padding:5px; border-radius:var(--radius); box-shadow:var(--shadow);
+}
+.teacher-tab {
+  flex:1; padding:10px; border:none; border-radius:10px;
+  background:transparent; font-size:14px; font-weight:600;
+  cursor:pointer; color:var(--gray-600);
+  transition:all var(--trans); font-family:var(--font);
+}
+.teacher-tab:hover:not(.active) { background:var(--gray-100); color:var(--gray-800); }
+.teacher-tab.active {
+  background: linear-gradient(135deg, var(--green-dark), var(--green));
+  color:#fff; box-shadow:var(--shadow-green);
+}
+
+.teacher-panel { display:none; }
+.teacher-panel.active { display:block; animation:fadeUp .35s var(--ease) both; }
+
+.teacher-section {
+  margin-top:16px; background:#fff;
+  padding:20px; border-radius:var(--radius); box-shadow:var(--shadow-md);
+  border:1px solid rgba(0,0,0,.04);
+}
+.teacher-section h3 {
+  margin:0 0 16px; font-size:16px; font-weight:700;
+  color:var(--green-dark); display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+}
+
+/* ── MODULE CARDS (DOCENTE) ── */
+.module-card {
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 14px;
+  transition: all var(--trans);
+  background: var(--gray-50);
+}
+.module-card:hover { border-color:var(--green); background:#fff; box-shadow:var(--shadow); }
+.module-card h4 { margin:0 0 4px; font-size:15px; font-weight:700; }
+.module-card .module-meta { font-size:12px; color:var(--gray-400); margin-bottom:10px; }
+.module-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+
+.quiz-list { margin-top:10px; border-top:1px solid var(--gray-200); padding-top:10px; }
+.quiz-item {
+  display:flex; align-items:flex-start; gap:8px;
+  padding:10px 12px; background:#fff;
+  border:1px solid var(--gray-200); border-radius:10px;
+  margin-bottom:6px; font-size:13px;
+  transition: box-shadow var(--trans);
+}
+.quiz-item:hover { box-shadow:var(--shadow); }
+.quiz-item-num {
+  background:linear-gradient(135deg,var(--green-dark),var(--green));
+  color:#fff; width:24px; height:24px;
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:700; flex-shrink:0; margin-top:1px;
+  box-shadow:var(--shadow-green);
+}
+.quiz-item-body { flex:1; }
+.quiz-item-opts { margin-top:4px; display:flex; flex-wrap:wrap; gap:4px; }
+.opt-pill { padding:2px 8px; border-radius:var(--radius-full); font-size:11px; background:var(--gray-200); color:var(--gray-600); }
+.opt-pill.correct { background:var(--green-light); color:var(--green-dark); font-weight:700; }
+
+/* ── STATS ── */
+.stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:12px; margin-top:12px; }
+.stat-card {
+  background: linear-gradient(135deg, var(--gray-50), #fff);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+  transition: all var(--trans);
+  box-shadow: var(--shadow-sm);
+}
+.stat-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); border-color:var(--green); }
+.stat-card .stat-num {
+  font-size: 28px; font-weight: 800;
+  background: linear-gradient(135deg, var(--green-dark), var(--green));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.stat-card .stat-label { font-size:11px; color:var(--gray-500); margin-top:4px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; }
+
+/* ── ARGOMENTI DOCENTE ── */
+.arg-teacher-card {
+  border:1.5px solid var(--gray-200); border-radius:var(--radius);
+  padding:14px; margin-bottom:12px;
+  background:#fff; transition:all var(--trans);
+}
+.arg-teacher-card:hover { border-color:var(--blue-lighter); box-shadow:var(--shadow); }
+.arg-teacher-card h4 { margin:0 0 4px; font-size:15px; font-weight:700; }
+.arg-teacher-card .arg-body-preview { font-size:12px; color:var(--gray-500); margin-top:4px; white-space:pre-wrap; max-height:60px; overflow:hidden; }
+
+/* ── MODALS ── */
+.overlay {
+  position:fixed; inset:0; background:rgba(0,0,0,.5);
+  z-index:1000; display:flex; align-items:center; justify-content:center; padding:16px;
+  backdrop-filter:blur(4px);
+}
+.modal {
+  background:#fff; border-radius:var(--radius-lg);
+  padding:28px; width:100%; max-width:560px; max-height:90vh;
+  overflow-y:auto; box-shadow:var(--shadow-xl);
+  border:1px solid rgba(255,255,255,.8);
+  animation:slideDown .3s var(--ease) both;
+}
+.modal h3 { margin:0 0 18px; font-size:18px; font-weight:800; color:var(--green-dark); }
+.modal label { display:block; font-size:12px; font-weight:700; margin-top:14px; color:var(--gray-600); text-transform:uppercase; letter-spacing:.04em; }
+.modal-footer { display:flex; gap:8px; margin-top:20px; justify-content:flex-end; }
+.modal-footer .btn { width:auto; padding:10px 22px; }
+.domanda-block { border:1.5px solid var(--gray-200); border-radius:var(--radius); padding:14px; margin-top:10px; background:var(--gray-50); }
+.domanda-block label { font-size:12px; }
+.domanda-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.domanda-header span { font-size:13px; font-weight:700; color:var(--green-dark); }
+.opzioni-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:4px; }
+.opzioni-grid input { margin-top:0; }
+.radio-row { display:flex; align-items:center; gap:6px; margin-top:8px; font-size:13px; }
+.radio-row input { width:auto; margin-top:0; }
+
+.confirm-overlay { position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:2000; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(4px); }
+.confirm-box {
+  background:#fff; border-radius:var(--radius-lg);
+  padding:28px; max-width:360px; width:90%;
+  text-align:center; box-shadow:var(--shadow-xl);
+  animation:slideDown .3s var(--ease) both;
+}
+.confirm-box h4 { margin:0 0 10px; font-size:17px; font-weight:800; color:var(--gray-800); }
+.confirm-box p  { font-size:14px; color:var(--gray-600); margin:0 0 20px; }
+.confirm-actions { display:flex; gap:10px; justify-content:center; }
+.confirm-actions .btn { width:auto; padding:10px 24px; }
+
+/* ── TOAST ── */
+.toast {
+  position:fixed; bottom:24px; right:24px;
+  background:linear-gradient(135deg,var(--gray-800),var(--gray-900));
+  color:#fff; padding:13px 22px;
+  border-radius:var(--radius); font-size:14px; font-weight:600;
+  z-index:9999; opacity:0; transform:translateY(14px);
+  transition:all .32s var(--ease); pointer-events:none;
+  box-shadow:var(--shadow-xl); border-left:4px solid var(--green);
+}
+.toast.show { opacity:1; transform:translateY(0); }
+
+/* ── FILTRO CATEGORIE ── */
+.cat-filters { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
+.cat-btn {
+  padding:5px 14px; border-radius:var(--radius-full);
+  border:1.5px solid var(--gray-200); background:#fff;
+  font-size:12px; font-weight:700; cursor:pointer;
+  transition:all var(--trans); font-family:var(--font);
+}
+.cat-btn:hover { border-color:var(--blue-lighter); color:var(--blue); }
+.cat-btn.active { background:linear-gradient(135deg,var(--blue-dark),var(--blue-light)); color:#fff; border-color:var(--blue); box-shadow:var(--shadow-blue); }
+
+/* ── BANNER AGGIORNAMENTO ── */
+.update-banner {
+  display:none; background:var(--amber-light);
+  border:1.5px solid var(--amber); color:var(--amber);
+  border-radius:var(--radius); padding:12px 16px; margin-top:12px;
+  font-size:13px; font-weight:600; align-items:center; gap:10px;
+  box-shadow:0 4px 12px -2px rgba(217,119,6,.2);
+}
+.update-banner.show { display:flex; animation:fadeUp .3s var(--ease) both; }
+.update-banner button {
+  margin-top:0; padding:6px 14px; font-size:12px;
+  background:var(--amber); color:#fff; border:none;
+  border-radius:var(--radius-sm); cursor:pointer; font-weight:700;
+  transition:all var(--trans); font-family:var(--font);
+}
+.update-banner button:hover { background:#b45309; }
+
+/* ── ARGOMENTO DOC-STYLE ── */
+.arg-doc {
+  background:#fff;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-md);
+  margin-bottom:24px;
+  overflow:hidden;
+  border:1px solid rgba(0,0,0,.05);
+  transition:box-shadow var(--trans);
+}
+.arg-doc:hover { box-shadow:var(--shadow-lg); }
+
+.arg-doc-header {
+  padding:22px 28px 18px;
+  border-bottom:2px solid var(--gray-100);
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+.arg-doc-header-left { flex:1; }
+.arg-doc-cat {
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:3px 12px;
+  border-radius:var(--radius-full);
+  font-size:11px; font-weight:800;
+  background:linear-gradient(135deg,var(--blue-dark),var(--blue-light));
+  color:#fff;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.arg-doc-title {
+  font-size:22px;
+  font-weight:800;
+  color:var(--gray-800);
+  line-height:1.25;
+  margin:0;
+  letter-spacing:-.02em;
+}
+.arg-doc-toggle {
+  background:none; border:1.5px solid var(--gray-200);
+  border-radius:var(--radius-sm); padding:7px 14px;
+  font-size:12px; font-weight:700; cursor:pointer;
+  color:var(--blue); transition:all var(--trans);
+  white-space:nowrap; font-family:var(--font);
+  flex-shrink:0;
+}
+.arg-doc-toggle:hover { background:var(--blue-dark); color:#fff; border-color:var(--blue-dark); }
+
+.arg-doc-preview {
+  padding:14px 28px;
+  font-size:14px; color:var(--gray-600); line-height:1.6;
+  border-bottom:1px solid var(--gray-100);
+}
+
+.arg-doc-body { display:none; animation:fadeUp .3s var(--ease) both; }
+.arg-doc-body.open { display:block; }
+
+.arg-video-box {
+  margin:0;
+  padding:20px 28px;
+  background:linear-gradient(135deg,#f0f4fb,#e8edf5);
+  border-bottom:1px solid var(--gray-200);
+}
+.arg-video-label {
+  display:flex; align-items:center; gap:8px;
+  font-size:12px; font-weight:700; color:var(--blue);
+  margin-bottom:12px; text-transform:uppercase; letter-spacing:.05em;
+}
+.arg-video-label-icon {
+  background:var(--blue-light); color:#fff;
+  width:26px; height:26px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px;
+}
+.arg-video-wrapper {
+  border-radius:var(--radius); overflow:hidden;
+  box-shadow:var(--shadow-lg); background:#000;
+  position:relative; padding-top:56.25%;
+}
+.arg-video-wrapper iframe {
+  position:absolute; inset:0;
+  width:100%; height:100%; border:none;
+}
+.arg-content { padding:24px 28px; }
+.arg-section-title {
+  font-size:16px; font-weight:700; color:var(--blue);
+  margin:20px 0 6px; padding-left:12px;
+  border-left:3px solid var(--blue-light); line-height:1.3;
+}
+.arg-bullet-list { list-style:none; padding:0; margin:6px 0 14px; }
+.arg-bullet-list li {
+  display:flex; align-items:flex-start; gap:10px;
+  padding:4px 0; font-size:14px; line-height:1.6; color:var(--gray-700);
+}
+.arg-bullet-list li::before {
+  content:''; width:7px; height:7px;
+  background:var(--green); border-radius:50%;
+  margin-top:7px; flex-shrink:0;
+}
+.arg-tip-box {
+  display:flex; gap:12px; align-items:flex-start;
+  background:var(--amber-light); border:1.5px solid #fde68a;
+  border-radius:var(--radius); padding:14px 16px;
+  margin:16px 0; font-size:14px; line-height:1.6; color:#92400e;
+}
+.arg-tip-icon { font-size:18px; flex-shrink:0; margin-top:1px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width:768px) {
+  .tabs, .teacher-tabs { flex-wrap:wrap; }
+  .tab, .teacher-tab { flex:1 1 calc(50% - 4px); }
+  .grid { grid-template-columns:1fr; }
+  .stats-grid { grid-template-columns:repeat(2,1fr); }
+  .card { padding:24px 20px; }
+}
+@media (max-width:480px) {
+  #app, #teacher { padding:12px; }
+  .topbar { padding:12px 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen" class="screen active">
+  <div class="card">
+    <h2>ExcelEdu</h2>
+    <p>Accedi con nome e password</p>
+    <input id="name" placeholder="Nome" autocomplete="username" />
+    <input id="pw" type="password" placeholder="Password" autocomplete="current-password" />
+    <button class="btn btn-primary" id="btnLogin">Accedi</button>
+    <button class="btn btn-secondary" id="btnRegister">Crea account</button>
+    <div id="msgLogin"></div>
+  </div>
+</div>
+
+<!-- APP STUDENTE -->
+<div id="app" class="hidden">
+  <div class="topbar">
+    <div class="topbar-left"><b>ExcelEdu</b><br><small id="hello"></small></div>
+    <button class="btn btn-secondary" style="width:auto;padding:9px 16px" id="btnLogoutApp">Esci</button>
+  </div>
+
+  <!-- BANNER AGGIORNAMENTO DISPONIBILE -->
+  <div class="update-banner" id="updateBanner">
+    <span>🔄 Il docente ha aggiornato i contenuti!</span>
+    <button onclick="applyUpdate()">Aggiorna ora</button>
+  </div>
+
+  <!-- TABS STUDENTE -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('quiz')">📝 Quiz</button>
+    <button class="tab" onclick="switchTab('argomenti')">📖 Argomenti</button>
+    <button class="tab" onclick="switchTab('progresso')">📊 Progresso</button>
+  </div>
+
+  <!-- TAB QUIZ -->
+  <div class="tab-panel active" id="tab-quiz">
+    <div class="section">
+      <h3 style="margin:0 0 14px">Moduli</h3>
+      <div class="grid" id="modules"></div>
+    </div>
+    <div class="section quiz-box" id="quizBox">
+      <h3 id="quizTitle" style="margin:0 0 4px"></h3>
+      <p><small id="quizDesc"></small></p>
+      <div id="quizQuestions"></div>
+      <button class="btn btn-primary" style="margin-top:14px" id="btnSubmitQuiz">Conferma quiz</button>
+      <div class="section" id="quizResult" style="display:none;margin-top:12px"></div>
+    </div>
+  </div>
+
+  <!-- TAB ARGOMENTI -->
+  <div class="tab-panel" id="tab-argomenti">
+    <div class="section">
+      <h3 style="margin:0 0 10px">📖 Argomenti</h3>
+      <div class="cat-filters" id="studentCatFilters"></div>
+      <div id="studentArgomenti"><p style="color:var(--gray-400);font-size:14px">Nessun argomento disponibile.</p></div>
+    </div>
+  </div>
+
+  <!-- TAB PROGRESSO -->
+  <div class="tab-panel" id="tab-progresso">
+    <div class="section">
+      <h3 style="margin:0 0 10px">Progresso</h3>
+      <div class="bar"><div class="fill" id="progFill"></div></div>
+      <p><small id="progText"></small></p>
+    </div>
+    <div class="section">
+      <h3 style="margin:0 0 10px">Risposte salvate</h3>
+      <table>
+        <thead><tr><th>Modulo</th><th>Domanda</th><th>Risposta</th><th>Esito</th><th>Data</th></tr></thead>
+        <tbody id="answersBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- PANNELLO DOCENTE -->
+<div id="teacher" class="hidden">
+  <div class="teacher-header">
+    <div>
+      <h2>🎓 Pannello Docente</h2>
+      <small>ExcelEdu · Gestione contenuti</small>
+    </div>
+    <button class="btn btn-secondary" style="width:auto;padding:9px 16px;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)" id="btnLogoutTeacher">Esci</button>
+  </div>
+
+  <!-- TABS DOCENTE -->
+  <div class="teacher-tabs">
+    <button class="teacher-tab active" onclick="switchTeacherTab('t-stats')">📊 Statistiche</button>
+    <button class="teacher-tab" onclick="switchTeacherTab('t-moduli')">📚 Moduli</button>
+    <button class="teacher-tab" onclick="switchTeacherTab('t-argomenti')">📖 Argomenti</button>
+    <button class="teacher-tab" onclick="switchTeacherTab('t-risposte')">👥 Risposte</button>
+  </div>
+
+  <!-- STATS -->
+  <div class="teacher-panel active" id="t-stats">
+    <div class="teacher-section">
+      <h3>📊 Statistiche</h3>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-num" id="statModuli">—</div><div class="stat-label">Moduli</div></div>
+        <div class="stat-card"><div class="stat-num" id="statDomande">—</div><div class="stat-label">Domande</div></div>
+        <div class="stat-card"><div class="stat-num" id="statArgomenti">—</div><div class="stat-label">Argomenti</div></div>
+        <div class="stat-card"><div class="stat-num" id="statStudenti">—</div><div class="stat-label">Studenti</div></div>
+        <div class="stat-card"><div class="stat-num" id="statCompletamenti">—</div><div class="stat-label">Completamenti</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULI -->
+  <div class="teacher-panel" id="t-moduli">
+    <div class="teacher-section">
+      <h3>📚 Moduli del corso <button class="btn btn-primary btn-sm" id="btnAddModule" style="margin-left:8px">+ Aggiungi modulo</button></h3>
+      <div id="teacherModules"></div>
+    </div>
+  </div>
+
+  <!-- ARGOMENTI DOCENTE -->
+  <div class="teacher-panel" id="t-argomenti">
+    <div class="teacher-section">
+      <h3>📖 Argomenti <button class="btn btn-blue btn-sm" id="btnAddArgomento" style="margin-left:8px">+ Aggiungi argomento</button></h3>
+      <div id="teacherArgomenti"><p style="color:var(--gray-400);font-size:14px">Nessun argomento.</p></div>
+    </div>
+  </div>
+
+  <!-- RISPOSTE -->
+  <div class="teacher-panel" id="t-risposte">
+    <div class="teacher-section">
+      <h3>👥 Risposte studenti</h3>
+      <table>
+        <thead><tr><th>Studente</th><th>Modulo</th><th>Domanda</th><th>Risposta</th><th>Esito</th><th>Data</th></tr></thead>
+        <tbody id="teacherAnswers"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL MODULO -->
+<div class="overlay hidden" id="moduleModal">
+  <div class="modal">
+    <h3 id="modalTitle">Nuovo modulo</h3>
+    <label>Titolo modulo</label>
+    <input id="modTitle" placeholder="es. Le basi di Excel" />
+    <label>Descrizione</label>
+    <input id="modDesc" placeholder="es. Interfaccia, celle, formule base" />
+    <div style="margin-top:16px;display:flex;justify-content:space-between;align-items:center">
+      <b style="font-size:14px">Domande quiz</b>
+      <button class="btn btn-secondary btn-sm" id="btnAddDomanda">+ Domanda</button>
+    </div>
+    <div id="domandeContainer"></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" id="btnCloseModal">Annulla</button>
+      <button class="btn btn-primary" id="btnSaveModule">Salva</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ARGOMENTO -->
+<div class="overlay hidden" id="argModal">
+  <div class="modal">
+    <h3 id="argModalTitle">Nuovo argomento</h3>
+    <label>Titolo</label>
+    <input id="argTitolo" placeholder="es. Cos'è una cella?" />
+    <label>Categoria</label>
+    <input id="argCategoria" placeholder="es. Basi, Formule, Grafici…" />
+    <label>🎬 URL Video YouTube <small style="font-weight:400;text-transform:none">(opzionale — es. https://www.youtube.com/watch?v=…)</small></label>
+    <input id="argVideo" placeholder="https://www.youtube.com/watch?v=..." />
+    <label>Contenuto</label>
+    <textarea id="argContenuto" rows="8" placeholder="Scrivi qui la spiegazione dell'argomento…&#10;&#10;Usa • per elenchi puntati&#10;Usa ⚡ Suggerimento: per box consiglio"></textarea>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" id="btnCloseArgModal">Annulla</button>
+      <button class="btn btn-blue" id="btnSaveArgomento">Salva argomento</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM -->
+<div class="confirm-overlay hidden" id="confirmOverlay">
+  <div class="confirm-box">
+    <h4 id="confirmTitle">Conferma</h4>
+    <p id="confirmMsg"></p>
+    <div class="confirm-actions">
+      <button class="btn btn-secondary" id="btnConfirmNo">Annulla</button>
+      <button class="btn btn-danger" id="btnConfirmYes">Elimina</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import { getDatabase, ref, get, set, remove, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC7jt8mfiWhLMSnNWdPIrdB47AgmLU1ERI",
+  authDomain: "tutorial-excel-2026.firebaseapp.com",
+  databaseURL: "https://tutorial-excel-2026-default-rtdb.firebaseio.com",
+  projectId: "tutorial-excel-2026",
+  storageBucket: "tutorial-excel-2026.firebasestorage.app",
+  messagingSenderId: "1004520973837",
+  appId: "1:1004520973837:web:b70078c49ca1b61fc25744"
+};
+
+const fbApp = initializeApp(firebaseConfig);
+const auth  = getAuth(fbApp);
+const db    = getDatabase(fbApp);
+
+// ─── STATO ────────────────────────────────────────────────
+let currentName='', currentUid='', isTeacher=false;
+let progress={}, answers=[], course=[], argomenti=[];
+let currentModule=null, editingModuleId=null, editingArgId=null, confirmCallback=null;
+let courseUnsubscribe=null, argomentiUnsubscribe=null, allAnswersUnsubscribe=null;
+// Flag per sapere se siamo già loggati (evita doppio rendering all'init)
+let appReady=false;
+// Flag per il banner: aggiornamento ricevuto mentre c'è un quiz aperto
+let pendingCourseUpdate=null, pendingArgomentiUpdate=null;
+const TEACHER_NAME='docente', TEACHER_PW='excel2024';
+
+// ─── ELEMENTI ─────────────────────────────────────────────
+const loginScreen=document.getElementById('loginScreen');
+const appScreen=document.getElementById('app');
+const teacherScreen=document.getElementById('teacher');
+const msgLogin=document.getElementById('msgLogin');
+const hello=document.getElementById('hello');
+const modulesEl=document.getElementById('modules');
+const progFill=document.getElementById('progFill');
+const progText=document.getElementById('progText');
+const quizBox=document.getElementById('quizBox');
+const quizQuestions=document.getElementById('quizQuestions');
+const quizResult=document.getElementById('quizResult');
+const answersBody=document.getElementById('answersBody');
+const moduleModal=document.getElementById('moduleModal');
+const argModal=document.getElementById('argModal');
+const confirmOverlay=document.getElementById('confirmOverlay');
+const toastEl=document.getElementById('toast');
+const updateBanner=document.getElementById('updateBanner');
+
+// ─── HELPERS ──────────────────────────────────────────────
+function showToast(m,d=2500){ toastEl.textContent=m; toastEl.classList.add('show'); setTimeout(()=>toastEl.classList.remove('show'),d); }
+function showConfirm(title,msg){ return new Promise(r=>{ confirmCallback=r; document.getElementById('confirmTitle').textContent=title; document.getElementById('confirmMsg').textContent=msg; confirmOverlay.classList.remove('hidden'); }); }
+function confirmResolve(v){ confirmOverlay.classList.add('hidden'); if(confirmCallback) confirmCallback(v); confirmCallback=null; }
+function safeKey(s){ return (s||'').trim().toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,''); }
+function emailFromName(n){ return safeKey(n)+'@classe.local'; }
+function showMsg(t){ msgLogin.textContent=t; }
+function escHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function showApp(){ loginScreen.classList.remove('active'); loginScreen.classList.add('hidden'); appScreen.classList.remove('hidden'); teacherScreen.classList.add('hidden'); }
+function showTeacher(){ loginScreen.classList.remove('active'); loginScreen.classList.add('hidden'); appScreen.classList.add('hidden'); teacherScreen.classList.remove('hidden'); }
+function showLogin(){ loginScreen.classList.remove('hidden'); loginScreen.classList.add('active'); appScreen.classList.add('hidden'); teacherScreen.classList.add('hidden'); }
+
+// ─── TABS ─────────────────────────────────────────────────
+window.switchTab = function(id){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  [...document.querySelectorAll('.tab')].find(t=>t.getAttribute('onclick')?.includes("'"+id+"'"))?.classList.add('active');
+};
+window.switchTeacherTab = function(id){
+  document.querySelectorAll('.teacher-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.teacher-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  [...document.querySelectorAll('.teacher-tab')].find(t=>t.getAttribute('onclick')?.includes("'"+id+"'"))?.classList.add('active');
+};
+
+// ─── REALTIME LISTENERS ───────────────────────────────────
+/**
+ * Attiva il listener realtime su "course".
+ * - Se lo studente ha un quiz aperto → mostra banner invece di aggiornare subito.
+ * - Altrimenti → aggiorna immediatamente.
+ */
+function subscribeCourse(){
+  if(courseUnsubscribe) courseUnsubscribe();
+  courseUnsubscribe = onValue(ref(db,'course'), snap => {
+    let newCourse;
+    if(snap.exists()){
+      newCourse=Object.entries(snap.val()).map(([id,v])=>({id,...v}));
+      newCourse.sort((a,b)=>(a.order||0)-(b.order||0));
+    } else {
+      newCourse=defaultCourse();
+      saveCourseToFirebase();
+    }
+    if(!appReady){ course=newCourse; return; } // primo caricamento: imposta silenziosamente
+    if(isTeacher){
+      course=newCourse;
+      renderTeacherModuli();
+      return;
+    }
+    const quizOpen=quizBox.classList.contains('open');
+    if(quizOpen){
+      pendingCourseUpdate=newCourse;
+      showUpdateBanner();
+    } else {
+      course=newCourse;
+      pendingCourseUpdate=null;
+      renderModules();
+    }
+  });
+}
+
+/**
+ * Attiva il listener realtime su "argomenti".
+ */
+function subscribeArgomenti(){
+  if(argomentiUnsubscribe) argomentiUnsubscribe();
+  argomentiUnsubscribe = onValue(ref(db,'argomenti'), snap => {
+    let newArg;
+    if(snap.exists()){
+      newArg=Object.entries(snap.val()).map(([id,v])=>({id,...v}));
+      newArg.sort((a,b)=>(a.order||0)-(b.order||0));
+    } else {
+      newArg=defaultArgomenti();
+      saveArgomentiToFirebase();
+    }
+    if(!appReady){ argomenti=newArg; return; }
+    if(isTeacher){
+      argomenti=newArg;
+      renderTeacherArgomenti();
+      return;
+    }
+    const quizOpen=quizBox.classList.contains('open');
+    if(quizOpen){
+      pendingArgomentiUpdate=newArg;
+      showUpdateBanner();
+    } else {
+      argomenti=newArg;
+      pendingArgomentiUpdate=null;
+      renderStudentArgomenti();
+    }
+  });
+}
+
+/**
+ * Listener realtime su /allAnswers — solo per il docente.
+ * Aggiorna tabella risposte e statistiche in tempo reale.
+ */
+function subscribeAllAnswers(){
+  if(allAnswersUnsubscribe) allAnswersUnsubscribe();
+  allAnswersUnsubscribe = onValue(ref(db,'allAnswers'), async snap => {
+    if(!isTeacher) return;
+    const allRows=[];
+    let completamenti=0;
+    const seenModules={};
+
+    // Leggi da /allAnswers (percorso principale)
+    if(snap.exists()){
+      const data=snap.val();
+      Object.values(data).forEach(row=>{
+        allRows.push(row);
+        const key=(row.uid||'')+'_'+(row.module||'');
+        if(!seenModules[key]){ seenModules[key]=true; completamenti++; }
+      });
+    }
+
+    // Fallback: leggi anche da /answers/:uid e /studentAnswers/:uid se /allAnswers è vuoto o incompleto
+    if(allRows.length===0){
+      try{
+        // Prova /studentAnswers (fallback del client)
+        const saSnap = await get(ref(db,'studentAnswers'));
+        if(saSnap.exists()){
+          Object.values(saSnap.val()).forEach(userAnswers=>{
+            Object.values(userAnswers).forEach(row=>{
+              allRows.push(row);
+              const key=(row.uid||'')+'_'+(row.module||'');
+              if(!seenModules[key]){ seenModules[key]=true; completamenti++; }
+            });
+          });
+        }
+        // Prova /answers/:uid (percorso per-utente)
+        if(allRows.length===0){
+          const answSnap = await get(ref(db,'answers'));
+          if(answSnap.exists()){
+            Object.values(answSnap.val()).forEach(userAnswers=>{
+              const arr = Array.isArray(userAnswers)?userAnswers:Object.values(userAnswers);
+              arr.forEach(row=>{
+                if(!row||typeof row!=='object') return;
+                allRows.push(row);
+                const key=(row.uid||'')+'_'+(row.module||'');
+                if(!seenModules[key]){ seenModules[key]=true; completamenti++; }
+              });
+            });
+          }
+        }
+      }catch(fe){ console.error('Errore lettura fallback answers:', fe); }
+    }
+
+    allRows.sort((a,b)=>(b.ts||0)-(a.ts||0));
+    document.getElementById('statCompletamenti').textContent=completamenti;
+    document.getElementById('teacherAnswers').innerHTML=allRows.length
+      ?allRows.map(a=>`<tr><td><b>${escHtml(a.student||a.uid||'?')}</b></td><td>${escHtml(a.module)}</td><td>${escHtml(a.question)}</td><td>${escHtml(a.answer)}</td><td><span class="${a.correct?'ok':'no'}">${a.correct?'✓':'✗'}</span></td><td>${a.ts?new Date(a.ts).toLocaleString('it-IT'):''}</td></tr>`).join('')
+      :'<tr><td colspan="6" style="color:var(--gray-400)">Nessuna risposta ancora.</td></tr>';
+  });
+}
+
+function showUpdateBanner(){ updateBanner.classList.add('show'); }
+function hideUpdateBanner(){ updateBanner.classList.remove('show'); }
+
+/** Chiamato dal pulsante "Aggiorna ora" nel banner */
+window.applyUpdate = function(){
+  if(pendingCourseUpdate){ course=pendingCourseUpdate; pendingCourseUpdate=null; }
+  if(pendingArgomentiUpdate){ argomenti=pendingArgomentiUpdate; pendingArgomentiUpdate=null; }
+  hideUpdateBanner();
+  quizBox.classList.remove('open');
+  currentModule=null;
+  renderModules();
+  renderStudentArgomenti();
+  showToast('Contenuti aggiornati ✓');
+};
+
+/** Smette di ascoltare (usato al logout) */
+function unsubscribeAll(){
+  if(courseUnsubscribe){ courseUnsubscribe(); courseUnsubscribe=null; }
+  if(argomentiUnsubscribe){ argomentiUnsubscribe(); argomentiUnsubscribe=null; }
+  if(allAnswersUnsubscribe){ allAnswersUnsubscribe(); allAnswersUnsubscribe=null; }
+}
+
+// ─── FIREBASE SAVE (solo docente) ─────────────────────────
+async function saveCourseToFirebase(){
+  try{ const o={}; course.forEach((m,i)=>{ const{id,...r}=m; o[id]={...r,order:i}; }); await set(ref(db,'course'),o); }catch(e){}
+}
+async function saveArgomentiToFirebase(){
+  try{ const o={}; argomenti.forEach((a,i)=>{ const{id,...r}=a; o[id]={...r,order:i}; }); await set(ref(db,'argomenti'),o); }catch(e){}
+}
+
+// ─── DEFAULT ARGOMENTI ────────────────────────────────────
+function defaultArgomenti(){
+  return [
+    { id:'a1', order:0, titolo:'Cos\'è una cella?', categoria:'Basi', video:'https://www.youtube.com/watch?v=rwbho0CgEAI', contenuto:'La cella è l\'unità base di un foglio Excel, identificata da una lettera (colonna) e un numero (riga). Ad esempio, la cella A1 si trova nella prima colonna e prima riga.\n\nPuoi inserire in una cella:\n• Testo\n• Numeri (7, 3.14, -50)\n• Date (01/01/2024)\n• Formule (=SOMMA(A1:A10))\n\nCome selezionare una cella:\nFai clic su di essa. Per modificarla, fai doppio clic oppure premi F2.\n\n💡 Suggerimento: Il nome della cella selezionata appare nella Casella Nome, in alto a sinistra.' },
+    { id:'a2', order:1, titolo:'Riferimenti assoluti e relativi', categoria:'Formule', video:'', contenuto:'Quando copi una formula in Excel, i riferimenti si aggiornano automaticamente. Questo si chiama riferimento relativo.\n\nEsempio pratico:\n• =A1+B1 copiata una riga sotto diventa =A2+B2\n\nSe vuoi bloccare un riferimento usa il simbolo $:\n• $A$1 → blocca sia colonna che riga (assoluto)\n• $A1 → blocca solo la colonna (misto)\n• A$1 → blocca solo la riga (misto)\n\nCome usarlo:\n• Premi F4 mentre sei nel riferimento per alternare tra i tipi\n\n💡 Suggerimento: Usa il riferimento assoluto ($A$1) quando hai un valore fisso da usare in molte formule, come un\'aliquota IVA.' },
+    { id:'a3', order:2, titolo:'La funzione SE', categoria:'Formule', video:'', contenuto:'La funzione SE permette di fare calcoli condizionali, restituendo valori diversi a seconda di una condizione.\n\nSintassi:\n• =SE(condizione; valore_se_vero; valore_se_falso)\n\nEsempio base:\n• =SE(A1>18; "Promosso"; "Bocciato")\n\nSE annidato:\n• =SE(A1>=9; "Ottimo"; SE(A1>=6; "Sufficiente"; "Insufficiente"))\n\n⚡ Suggerimento: Puoi annidare fino a 64 funzioni SE, ma per condizioni complesse è meglio usare SE.PIÙ.CONDIZIONI (disponibile da Excel 2019).' },
+    { id:'a4', order:3, titolo:'Come creare un grafico', categoria:'Grafici', video:'', contenuto:'I grafici trasformano i dati in visualizzazioni chiare e immediate.\n\nPer creare un grafico:\n• Seleziona i dati che vuoi rappresentare\n• Vai su Inserisci → Grafici\n• Scegli il tipo di grafico\n• Il grafico appare nel foglio, pronto da personalizzare\n\nTipi di grafico principali:\n• Barre/Colonne: confrontare valori tra categorie\n• Linee: mostrare un andamento nel tempo\n• Torta: mostrare percentuali di un totale\n• Dispersione: correlare due variabili numeriche\n\n💡 Suggerimento: Clicca sul grafico per accedere agli strumenti di personalizzazione. Puoi cambiare colori, titolo, legende e molto altro.' },
+    { id:'a5', order:4, titolo:'Filtri e ordinamento', categoria:'Dati', video:'', contenuto:'I filtri permettono di visualizzare solo le righe che soddisfano certi criteri, senza eliminare i dati.\n\nCome attivare il filtro automatico:\n• Clicca su una cella dell\'elenco\n• Vai su Dati → Filtro\n• Compaiono le frecce ▼ sulle intestazioni\n• Clicca la freccia per filtrare quella colonna\n\nOrdinamento:\n• Dati → Ordina dalla A alla Z (crescente)\n• Dati → Ordina dalla Z alla A (decrescente)\n• Per più colonne: Dati → Ordina → Aggiungi livello\n\n⚡ Suggerimento: La funzione SUBTOTALE calcola automaticamente solo sulle righe visibili dopo il filtro.' },
+    { id:'a6', order:5, titolo:'Le tabelle Pivot', categoria:'Analisi', video:'', contenuto:'Le tabelle pivot permettono di riepilogare grandi quantità di dati in modo flessibile e interattivo.\n\nCome inserire una pivot:\n• Seleziona i dati (incluse le intestazioni)\n• Inserisci → Tabella pivot\n• Scegli dove inserirla (foglio nuovo consigliato)\n• Trascina i campi nelle aree disponibili\n\nLe 4 aree della pivot:\n• Righe: le categorie da raggruppare verticalmente\n• Colonne: le categorie da raggruppare orizzontalmente\n• Valori: i numeri da calcolare (somma, media, conteggio…)\n• Filtri: per filtrare l\'intera tabella\n\nEsempio pratico:\nHai vendite con colonne Data, Venditore, Importo. Trascina Venditore in Righe e Importo in Valori → ottieni il totale per venditore.\n\n💡 Suggerimento: Per aggiornare la pivot dopo aver cambiato i dati: tasto destro sulla pivot → Aggiorna.' },
+  ];
+}
+
+// ─── DEFAULT COURSE ───────────────────────────────────────
+function defaultCourse(){
+  return [
+    { id:'m1', order:0, title:'Le basi di Excel', desc:'Interfaccia, celle, riferimenti e navigazione', quiz:[
+      { q:'Come si chiama l\'intersezione tra una riga e una colonna?', o:['Foglio','Cella','Tabella','Campo'], c:1 },
+      { q:'Con quale simbolo inizia una formula?', o:['+','=','%','#'], c:1 },
+      { q:'Come si chiama la barra dove si digita il contenuto della cella selezionata?', o:['Barra degli strumenti','Barra della formula','Barra di stato','Barra multifunzione'], c:1 },
+      { q:'Quale scorciatoia seleziona tutta la colonna attiva?', o:['Ctrl+R','Ctrl+Spazio','Shift+Spazio','Alt+Spazio'], c:1 },
+      { q:'Quante righe ha un foglio Excel moderno?', o:['65.536','100.000','1.048.576','500.000'], c:2 }
+    ]},
+    { id:'m2', order:1, title:'Formule e riferimenti', desc:'Riferimenti relativi, assoluti e misti', quiz:[
+      { q:'Cosa calcola =MEDIA(A1:A5)?', o:['La somma','La media aritmetica','Il massimo','Il conteggio'], c:1 },
+      { q:'Quale riferimento resta fisso copiando la formula?', o:['A1','$A$1','A$1','$A1'], c:1 },
+      { q:'Cosa indica il simbolo $ in un riferimento?', o:['Valuta','Blocca riga o colonna','Percentuale','Fine formula'], c:1 },
+      { q:'=A1+B1 copiata in basso di una riga diventa:', o:['=A1+B1','=A2+B2','=$A$1+$B$1','=A0+B0'], c:1 },
+      { q:'Quale riferimento blocca solo la riga?', o:['$A1','A$1','$A$1','A1'], c:1 }
+    ]},
+    { id:'m3', order:2, title:'Funzioni principali', desc:'SOMMA, MEDIA, MIN, MAX, CONTA', quiz:[
+      { q:'Quale funzione conta solo le celle non vuote?', o:['CONTA.NUMERI','CONTA.VALORI','CONTA.SE','CONTA.VUOTE'], c:1 },
+      { q:'Cosa restituisce =MAX(3;7;2;9;1)?', o:['3','1','9','7'], c:2 },
+      { q:'=SOMMA(A1:A3) con A1=10, A2=20, A3=30 restituisce:', o:['30','50','60','20'], c:2 },
+      { q:'Quale funzione conta le celle che soddisfano un criterio?', o:['SOMMA.SE','CONTA.SE','MEDIA.SE','CERCA.VERT'], c:1 },
+      { q:'=MIN(5;2;8;1;4) restituisce:', o:['5','2','8','1'], c:3 }
+    ]},
+    { id:'m4', order:3, title:'Funzione SE', desc:'Logica condizionale e SE annidato', quiz:[
+      { q:'Qual è la sintassi corretta di SE?', o:['=SE(valore;test)','=SE(test;se_vero;se_falso)','=SE(se_vero;test;se_falso)','=SE(test;se_falso;se_vero)'], c:1 },
+      { q:'=SE(A1>10;"Grande";"Piccolo") con A1=15 restituisce:', o:['Piccolo','Grande','15','ERRORE'], c:1 },
+      { q:'Come si annidano due condizioni in SE?', o:['=SE(A1>0;SE(A1<100;"Ok";"Alto");"Negativo")','=SE(A1>0 E A1<100)','=SE.E(A1>0;A1<100)','=SEANNIDATO()'], c:0 },
+      { q:'Quale funzione combina più condizioni AND in Excel italiano?', o:['E()','AND()','TUTTO()','ENTRAMBI()'], c:0 },
+      { q:'=SE(5=5;"Vero";"Falso") restituisce:', o:['Falso','5','Vero','ERRORE'], c:2 }
+    ]},
+    { id:'m5', order:4, title:'Formattazione celle', desc:'Numeri, date, colori e stili', quiz:[
+      { q:'Come si applica il formato valuta a una cella?', o:['Tasto destro → Formato celle → Numero → Valuta','Inserisci → Valuta','Dati → Formato','Vista → Valuta'], c:0 },
+      { q:'Quale formato mostra 0,75 come 75%?', o:['Numero','Valuta','Percentuale','Scientifico'], c:2 },
+      { q:'La formattazione condizionale serve a:', o:['Calcolare condizioni','Colorare celle in base a regole','Filtrare dati','Ordinare righe'], c:1 },
+      { q:'Come si uniscono più celle in Excel?', o:['Inserisci → Unisci','Home → Unisci e centra','Formato → Combina','Dati → Unisci'], c:1 },
+      { q:'Quale tasto applica il grassetto?', o:['Ctrl+I','Ctrl+U','Ctrl+B','Ctrl+G'], c:2 }
+    ]},
+    { id:'m6', order:5, title:'Grafici', desc:'Creare e personalizzare grafici in Excel', quiz:[
+      { q:'Quale tipo di grafico è ideale per mostrare un trend nel tempo?', o:['Torta','Barre','Linee','Dispersione'], c:2 },
+      { q:'Come si inserisce un grafico in Excel?', o:['Dati → Grafico','Inserisci → Grafici','Vista → Nuovo grafico','Home → Grafico'], c:1 },
+      { q:'Il grafico a torta è utile per:', o:['Confrontare serie multiple','Mostrare proporzioni di un totale','Analizzare trend','Correlare due variabili'], c:1 },
+      { q:'Cosa si seleziona PRIMA di inserire un grafico?', o:['Solo i titoli','I dati da rappresentare','Una cella vuota','Il foglio intero'], c:1 },
+      { q:'Come si cambia il tipo di grafico dopo averlo creato?', o:['Elimina e ricrea','Tasto destro sul grafico → Cambia tipo di grafico','Inserisci → Modifica grafico','Formato → Tipo'], c:1 }
+    ]},
+    { id:'m7', order:6, title:'Ordinamento e filtri', desc:'Gestire e analizzare elenchi di dati', quiz:[
+      { q:'Come si attiva il filtro automatico?', o:['Dati → Ordina','Dati → Filtro','Home → Filtro','Inserisci → Filtro'], c:1 },
+      { q:'Cosa fa "Ordina dalla A alla Z"?', o:['Ordine numerico decrescente','Ordine alfabetico crescente','Ordine per colore','Ordine casuale'], c:1 },
+      { q:'Il filtro avanzato permette di:', o:['Colorare le celle','Filtrare con criteri complessi su più colonne','Calcolare totali','Creare grafici'], c:1 },
+      { q:'Come si rimuove un filtro applicato?', o:['Cancella le celle','Dati → Cancella filtro / Riapplica','Elimina la colonna','Chiudi il file'], c:1 },
+      { q:'Quale funzione calcola la somma solo sulle righe filtrate visibili?', o:['SOMMA','SOMMA.SE','SUBTOTALE','CONTA.SE'], c:2 }
+    ]},
+    { id:'m8', order:7, title:'Tabelle Pivot', desc:'Riepilogare e analizzare grandi quantità di dati', quiz:[
+      { q:'A cosa serve una tabella pivot?', o:['Creare grafici animati','Riepilogare e analizzare grandi set di dati','Formattare celle automaticamente','Ordinare alfabeticamente'], c:1 },
+      { q:'Come si inserisce una tabella pivot?', o:['Home → Tabella pivot','Inserisci → Tabella pivot','Dati → Pivot','Vista → Analisi'], c:1 },
+      { q:'Cosa si trascina nell\'area "Valori" di una pivot?', o:['I campi da raggruppare','I campi da calcolare (es. somma)','I filtri','Le etichette di riga'], c:1 },
+      { q:'Come si aggiorna una tabella pivot dopo aver modificato i dati?', o:['Si ricrea da zero','Tasto destro → Aggiorna','Salva il file','Inserisci → Aggiorna'], c:1 },
+      { q:'Quale campo definisce le categorie nelle righe della pivot?', o:['Valori','Filtri','Righe','Colonne'], c:2 }
+    ]}
+  ];
+}
+
+// ─── STUDENTE: ARGOMENTI ──────────────────────────────────
+let activeCatFilter = 'Tutti';
+
+function youtubeEmbed(url){
+  if(!url) return '';
+  let id='';
+  try{
+    const u=new URL(url);
+    if(u.hostname.includes('youtu.be')) id=u.pathname.slice(1);
+    else id=u.searchParams.get('v')||'';
+  }catch(e){ const m=url.match(/(?:v=|youtu\.be\/)([^&?/]+)/); if(m) id=m[1]; }
+  return id ? `https://www.youtube.com/embed/${id}?rel=0` : '';
+}
+
+function renderContenuto(testo){
+  const lines = (testo||'').split('\n');
+  let html='', inList=false;
+  for(const raw of lines){
+    const line=raw.trimEnd();
+    // Riga vuota
+    if(!line.trim()){
+      if(inList){ html+='</ul>'; inList=false; }
+      html+='<br>';
+      continue;
+    }
+    // Bullet (• o - all'inizio)
+    if(/^[•\-]\s/.test(line)){
+      if(!inList){ html+='<ul class="arg-bullet-list">'; inList=true; }
+      html+=`<li>${escHtml(line.replace(/^[•\-]\s*/,''))}</li>`;
+      continue;
+    }
+    if(inList){ html+='</ul>'; inList=false; }
+    // Suggerimento (⚡ 💡 ✨ Suggerimento:)
+    if(/^[⚡💡✨🔥📌⚠️]\s/.test(line) || /^Suggerimento:/i.test(line)){
+      const icon=line.match(/^([⚡💡✨🔥📌⚠️])/)?.[1]||'💡';
+      const txt=line.replace(/^[⚡💡✨🔥📌⚠️]\s*/,'').replace(/^Suggerimento:\s*/i,'');
+      html+=`<div class="arg-tip-box"><span class="arg-tip-icon">${icon}</span><div><strong>Suggerimento:</strong> ${escHtml(txt)}</div></div>`;
+      continue;
+    }
+    // Titoletto di sezione (riga che finisce con : e non troppo lunga)
+    if(line.endsWith(':') && line.length<60 && !line.startsWith(' ')){
+      html+=`<div class="arg-section-title">${escHtml(line)}</div>`;
+      continue;
+    }
+    // Testo normale
+    html+=`<p style="margin:0 0 8px;font-size:15px;line-height:1.75;color:var(--gray-800)">${escHtml(line)}</p>`;
+  }
+  if(inList) html+='</ul>';
+  return html;
+}
+
+function renderStudentArgomenti(){
+  const cats = ['Tutti', ...new Set(argomenti.map(a=>a.categoria).filter(Boolean))];
+  const filtersEl = document.getElementById('studentCatFilters');
+  filtersEl.innerHTML = cats.map(c=>`<button class="cat-btn${c===activeCatFilter?' active':''}" onclick="filterArgomenti('${escHtml(c)}')">${escHtml(c)}</button>`).join('');
+  const filtered = activeCatFilter==='Tutti' ? argomenti : argomenti.filter(a=>a.categoria===activeCatFilter);
+  const el = document.getElementById('studentArgomenti');
+  if(!filtered.length){ el.innerHTML='<p style="color:var(--gray-400);font-size:14px">Nessun argomento in questa categoria.</p>'; return; }
+  el.innerHTML = filtered.map(a=>{
+    const embedUrl = youtubeEmbed(a.video||'');
+    const videoSection = embedUrl ? `
+      <div class="arg-video-box">
+        <div class="arg-video-label">
+          <span class="arg-video-label-icon">▶</span>
+          Guarda il video tutorial
+        </div>
+        <div class="arg-video-wrapper">
+          <iframe src="${embedUrl}" allowfullscreen loading="lazy" title="${escHtml(a.titolo)}"></iframe>
+        </div>
+      </div>` : '';
+    const previewText = (a.contenuto||'').split('\n').find(l=>l.trim()&&!/^[•\-]/.test(l))||'';
+    return `
+    <div class="arg-doc" id="ac-${a.id}">
+      <div class="arg-doc-header">
+        <div class="arg-doc-header-left">
+          <div class="arg-doc-cat">${escHtml(a.categoria||'Generale')}</div>
+          <h2 class="arg-doc-title">${escHtml(a.titolo)}</h2>
+        </div>
+        <button class="arg-doc-toggle" onclick="toggleArg('${a.id}')">▼ Leggi</button>
+      </div>
+      <div class="arg-doc-preview">${escHtml(previewText.substring(0,120))}${previewText.length>120?'…':''}</div>
+      <div class="arg-doc-body" id="ab-${a.id}">
+        ${videoSection}
+        <div class="arg-content">${renderContenuto(a.contenuto||'')}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+window.filterArgomenti = function(cat){ activeCatFilter=cat; renderStudentArgomenti(); };
+window.toggleArg = function(id){
+  const body = document.getElementById('ab-'+id);
+  const btn  = document.querySelector(`#ac-${id} .arg-doc-toggle`);
+  const open = body.classList.toggle('open');
+  btn.textContent = open ? '▲ Chiudi' : '▼ Leggi';
+};
+
+// ─── DOCENTE: ARGOMENTI ───────────────────────────────────
+function renderTeacherArgomenti(){
+  const el = document.getElementById('teacherArgomenti');
+  document.getElementById('statArgomenti').textContent = argomenti.length;
+  if(!argomenti.length){ el.innerHTML='<p style="color:var(--gray-400);font-size:14px">Nessun argomento. Aggiungine uno!</p>'; return; }
+  el.innerHTML = argomenti.map(a=>`
+    <div class="arg-teacher-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+        <div style="flex:1">
+          <span class="arg-cat">${escHtml(a.categoria||'')}</span>
+          <h4>${escHtml(a.titolo)}</h4>
+          <div class="arg-body-preview">${escHtml(a.contenuto||'')}</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-shrink:0;margin-top:4px">
+          <button class="btn btn-amber btn-sm" onclick="openEditArgomento('${a.id}')">✏️</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteArgomento('${a.id}')">🗑</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+window.openAddArgomento = function(){
+  editingArgId=null;
+  document.getElementById('argModalTitle').textContent='Nuovo argomento';
+  document.getElementById('argTitolo').value='';
+  document.getElementById('argCategoria').value='';
+  document.getElementById('argVideo').value='';
+  document.getElementById('argContenuto').value='';
+  argModal.classList.remove('hidden');
+};
+window.openEditArgomento = function(aid){
+  const a=argomenti.find(x=>x.id===aid); if(!a) return;
+  editingArgId=aid;
+  document.getElementById('argModalTitle').textContent='Modifica argomento';
+  document.getElementById('argTitolo').value=a.titolo||'';
+  document.getElementById('argCategoria').value=a.categoria||'';
+  document.getElementById('argVideo').value=a.video||'';
+  document.getElementById('argContenuto').value=a.contenuto||'';
+  argModal.classList.remove('hidden');
+};
+window.closeArgModal = function(){ argModal.classList.add('hidden'); };
+window.saveArgomento = async function(){
+  const titolo=document.getElementById('argTitolo').value.trim();
+  const categoria=document.getElementById('argCategoria').value.trim();
+  const video=document.getElementById('argVideo').value.trim();
+  const contenuto=document.getElementById('argContenuto').value.trim();
+  if(!titolo) return showToast('Inserisci un titolo');
+  if(!contenuto) return showToast('Inserisci il contenuto');
+  if(editingArgId){
+    const idx=argomenti.findIndex(x=>x.id===editingArgId);
+    if(idx!==-1) argomenti[idx]={...argomenti[idx],titolo,categoria,video,contenuto};
+  } else {
+    argomenti.push({id:'a'+Date.now(),order:argomenti.length,titolo,categoria,video,contenuto});
+  }
+  await saveArgomentiToFirebase();
+  closeArgModal();
+  showToast(editingArgId?'Argomento aggiornato ✓':'Argomento aggiunto ✓');
+};
+window.deleteArgomento = async function(aid){
+  const a=argomenti.find(x=>x.id===aid); if(!a) return;
+  const yes=await showConfirm('Elimina argomento',`Eliminare "${a.titolo}"?`);
+  if(!yes) return;
+  argomenti=argomenti.filter(x=>x.id!==aid);
+  try{ await remove(ref(db,'argomenti/'+aid)); }catch(e){}
+  showToast('Argomento eliminato');
+};
+
+// ─── STUDENTE ─────────────────────────────────────────────
+function updateProgress(){
+  const done=Object.values(progress).filter(v=>v.done).length;
+  const tot=course.length; const pct=tot?Math.round((done/tot)*100):0;
+  progFill.style.width=pct+'%';
+  progText.textContent=done+' di '+tot+' moduli completati';
+}
+function renderAnswers(){
+  answersBody.innerHTML=(Array.isArray(answers)?answers:Object.values(answers)).map(a=>`
+    <tr><td>${a.module}</td><td>${a.question}</td><td>${a.answer}</td>
+    <td><span class="${a.correct?'ok':'no'}">${a.correct?'✓ Corretto':'✗ Sbagliato'}</span></td>
+    <td>${new Date(a.ts).toLocaleString('it-IT')}</td></tr>`).join('');
+}
+function renderModules(){
+  modulesEl.innerHTML=course.map(m=>{
+    const done=progress[m.id]?.done;
+    return `<div class="mod"><h3>${escHtml(m.title)}</h3><p>${escHtml(m.desc)}</p>
+      <span class="badge ${done?'badge-ok':'badge-todo'}">${done?'✓ Completato':'Da fare'}</span><br>
+      <button class="btn btn-primary" style="margin-top:10px" onclick="openModule('${m.id}')">Apri quiz</button></div>`;
+  }).join('');
+  updateProgress(); renderAnswers();
+}
+window.openModule = function(mid){
+  currentModule=course.find(x=>x.id===mid); if(!currentModule) return;
+  document.getElementById('quizTitle').textContent=currentModule.title;
+  document.getElementById('quizDesc').textContent=currentModule.desc;
+  quizQuestions.innerHTML=currentModule.quiz.map((q,qi)=>`
+    <div class='q' data-qi='${qi}'><b>${qi+1}. ${escHtml(q.q)}</b>
+    ${q.o.map((o,oi)=>`<div class='opt' onclick="pickOpt(this,${oi})">${escHtml(o)}</div>`).join('')}
+    <div class='res'></div></div>`).join('');
+  quizResult.style.display='none';
+  quizBox.classList.add('open');
+  quizBox.scrollIntoView({behavior:'smooth',block:'start'});
+  switchTab('quiz');
+};
+window.pickOpt = function(el,idx){
+  el.parentElement.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));
+  el.classList.add('sel'); el.parentElement.dataset.sel=idx;
+};
+async function submitQuiz(){
+  if(!currentModule) return;
+  const qs=quizQuestions.querySelectorAll('.q'); let score=0; const ma=[];
+  qs.forEach((q,i)=>{
+    const sel=Number(q.dataset.sel); const cor=currentModule.quiz[i].c;
+    const chosen=Number.isFinite(sel)?currentModule.quiz[i].o[sel]:'Nessuna risposta';
+    const ok=sel===cor; if(ok) score++;
+    q.querySelector('.res').innerHTML=ok?'<span class="ok">✓ Corretto</span>':`<span class="no">✗ Sbagliato – risposta: ${escHtml(currentModule.quiz[i].o[cor])}</span>`;
+    ma.push({module:currentModule.title,question:currentModule.quiz[i].q,answer:chosen,correct:ok,ts:Date.now()});
+  });
+  answers=(Array.isArray(answers)?answers:Object.values(answers)).filter(a=>a.module!==currentModule.title).concat(ma);
+  progress[currentModule.id]={done:true,score,total:currentModule.quiz.length};
+  try{
+    await set(ref(db,'progress/'+currentUid),progress);
+    // Salva le risposte con uid e nome studente, così il docente può leggerle anche dal percorso alternativo
+    const answersWithMeta = answers.map(a=>({...a, uid:currentUid, student:currentName}));
+    await set(ref(db,'answers/'+currentUid), answersWithMeta);
+  }catch(e){ console.error('Errore salvataggio answers:', e); }
+  try{
+    // Scrivi anche in /allAnswers per il docente (realtime)
+    const allAnswersUpdate={};
+    ma.forEach((a,i)=>{
+      const key=currentUid+'_'+safeKey(a.module)+'_'+i+'_'+a.ts;
+      allAnswersUpdate[key]={...a, uid:currentUid, student:currentName};
+    });
+    await update(ref(db,'allAnswers'), allAnswersUpdate);
+  }catch(e){
+    console.error('Errore scrittura allAnswers (possibile problema regole Firebase):', e);
+    // Fallback: salva in /studentAnswers/:uid/:moduleKey per aggirare restrizioni su /allAnswers
+    try{
+      const fallbackUpdate={};
+      ma.forEach((a,i)=>{
+        const key=safeKey(a.module)+'_'+i+'_'+a.ts;
+        fallbackUpdate[key]={...a, uid:currentUid, student:currentName};
+      });
+      await update(ref(db,'studentAnswers/'+currentUid), fallbackUpdate);
+    }catch(e2){ console.error('Errore fallback studentAnswers:', e2); }
+  }
+  updateProgress(); renderAnswers();
+  quizResult.style.display='block';
+  quizResult.innerHTML=`<b>Punteggio: ${score}/${currentModule.quiz.length}</b>`;
+  // Quiz completato: applica eventuali aggiornamenti pendenti
+  quizBox.classList.remove('open');
+  currentModule=null;
+  if(pendingCourseUpdate||pendingArgomentiUpdate){ applyUpdate(); }
+  else { hideUpdateBanner(); }
+}
+
+// ─── DOCENTE: MODULI ──────────────────────────────────────
+function renderTeacherModuli(){
+  document.getElementById('statModuli').textContent=course.length;
+  document.getElementById('statDomande').textContent=course.reduce((s,m)=>s+(m.quiz?.length||0),0);
+  const tEl=document.getElementById('teacherModules');
+  tEl.innerHTML=course.length?course.map(m=>`
+    <div class="module-card"><h4>${escHtml(m.title)}</h4>
+    <div class="module-meta">${m.quiz?.length||0} domande · ${escHtml(m.desc)}</div>
+    <div class="quiz-list">${(m.quiz||[]).map((q,i)=>`
+      <div class="quiz-item"><div class="quiz-item-num">${i+1}</div>
+      <div class="quiz-item-body"><b>${escHtml(q.q)}</b>
+      <div class="quiz-item-opts">${q.o.map((o,oi)=>`<span class="opt-pill ${oi===q.c?'correct':''}">${escHtml(o)}</span>`).join('')}</div>
+      </div></div>`).join('')}</div>
+    <div class="module-actions">
+      <button class="btn btn-amber btn-sm" onclick="openEditModule('${m.id}')">✏️ Modifica</button>
+      <button class="btn btn-danger btn-sm" onclick="deleteModule('${m.id}')">🗑 Elimina</button>
+    </div></div>`).join('')
+    :'<p style="color:var(--gray-400);font-size:14px">Nessun modulo.</p>';
+}
+
+async function renderTeacher(){
+  renderTeacherModuli();
+  renderTeacherArgomenti();
+  let usersSnap; try{ usersSnap=await get(ref(db,'users')); }catch(e){ usersSnap=null; }
+  const allUsers=(usersSnap&&usersSnap.exists())?usersSnap.val():{};
+  document.getElementById('statStudenti').textContent=Object.keys(allUsers).length;
+  // Risposte e completamenti: gestiti in tempo reale da subscribeAllAnswers()
+}
+
+// MODULI CRUD
+window.openAddModule = function(){
+  editingModuleId=null;
+  document.getElementById('modalTitle').textContent='Nuovo modulo';
+  document.getElementById('modTitle').value='';
+  document.getElementById('modDesc').value='';
+  document.getElementById('domandeContainer').innerHTML='';
+  addDomanda();
+  moduleModal.classList.remove('hidden');
+};
+window.openEditModule = function(mid){
+  const m=course.find(x=>x.id===mid); if(!m) return;
+  editingModuleId=mid;
+  document.getElementById('modalTitle').textContent='Modifica modulo';
+  document.getElementById('modTitle').value=m.title;
+  document.getElementById('modDesc').value=m.desc;
+  document.getElementById('domandeContainer').innerHTML='';
+  (m.quiz||[]).forEach(q=>addDomanda(q));
+  moduleModal.classList.remove('hidden');
+};
+function closeModal(){ moduleModal.classList.add('hidden'); }
+function addDomanda(existing=null){
+  const cont=document.getElementById('domandeContainer');
+  const idx=cont.children.length;
+  const div=document.createElement('div'); div.className='domanda-block'; div.dataset.idx=idx;
+  div.innerHTML=`<div class="domanda-header"><span>Domanda ${idx+1}</span><button class="btn btn-danger btn-sm" onclick="removeDomanda(this)">✕</button></div>
+    <label>Testo domanda</label><input class="d-testo" placeholder="es. Quale simbolo inizia una formula?" value="${existing?escHtml(existing.q):''}"/>
+    <label>Opzioni (4)</label><div class="opzioni-grid">${[0,1,2,3].map(i=>`<input class="d-opt" data-i="${i}" placeholder="Opzione ${i+1}" value="${existing?escHtml(existing.o[i]||''):''}" />`).join('')}</div>
+    <div class="radio-row"><b style="font-size:13px;margin-right:6px">Risposta corretta:</b>${[0,1,2,3].map(i=>`<label style="display:flex;align-items:center;gap:4px;font-size:13px"><input type="radio" name="correct_${idx}" value="${i}" ${existing&&existing.c===i?'checked':''}/>${i+1}</label>`).join('')}</div>`;
+  cont.appendChild(div);
+}
+window.removeDomanda = function(btn){ btn.closest('.domanda-block').remove(); renumberDomande(); };
+function renumberDomande(){
+  document.querySelectorAll('.domanda-block').forEach((d,i)=>{
+    d.dataset.idx=i; d.querySelector('.domanda-header span').textContent='Domanda '+(i+1);
+    d.querySelectorAll('input[type=radio]').forEach(r=>r.name='correct_'+i);
+  });
+}
+async function saveModule(){
+  const title=document.getElementById('modTitle').value.trim();
+  const desc=document.getElementById('modDesc').value.trim();
+  if(!title) return showToast('Inserisci il titolo del modulo');
+  const blocks=document.querySelectorAll('.domanda-block');
+  if(!blocks.length) return showToast('Aggiungi almeno una domanda');
+  const quiz=[]; let ok=true;
+  blocks.forEach(b=>{
+    const q=b.querySelector('.d-testo').value.trim();
+    const opts=[...b.querySelectorAll('.d-opt')].map(x=>x.value.trim());
+    let c=-1; b.querySelectorAll('input[type=radio]').forEach(r=>{ if(r.checked) c=Number(r.value); });
+    if(!q||opts.some(o=>!o)||c===-1) ok=false;
+    quiz.push({q,o:opts,c});
+  });
+  if(!ok) return showToast('Compila tutte le domande e seleziona la risposta corretta');
+  if(editingModuleId){ const idx=course.findIndex(x=>x.id===editingModuleId); if(idx!==-1) course[idx]={...course[idx],title,desc,quiz}; }
+  else course.push({id:'m'+Date.now(),order:course.length,title,desc,quiz});
+  await saveCourseToFirebase();
+  closeModal();
+  // Il listener onValue si occuperà di aggiornare tutto automaticamente
+  showToast(editingModuleId?'Modulo aggiornato ✓':'Modulo aggiunto ✓');
+}
+window.deleteModule = async function(mid){
+  const m=course.find(x=>x.id===mid); if(!m) return;
+  const yes=await showConfirm('Elimina modulo',`Eliminare "${m.title}"?`); if(!yes) return;
+  course=course.filter(x=>x.id!==mid);
+  try{ await remove(ref(db,'course/'+mid)); }catch(e){}
+  showToast('Modulo eliminato');
+};
+
+// ─── AUTH ─────────────────────────────────────────────────
+async function doLogin(){
+  const name=document.getElementById('name').value.trim();
+  const pw=document.getElementById('pw').value;
+  if(!name||!pw) return showMsg('Inserisci nome e password.');
+  if(name.toLowerCase()===TEACHER_NAME && pw===TEACHER_PW){
+    isTeacher=true; currentName='Docente'; showMsg('Accesso docente...');
+    try{
+      // Il docente si autentica anonimamente su Firebase per poter scrivere
+      await signInAnonymously(auth);
+      appReady=false;
+      subscribeCourse();
+      subscribeArgomenti();
+      subscribeAllAnswers();
+      await new Promise(r=>setTimeout(r,600));
+      appReady=true;
+      await renderTeacher();
+      showTeacher();
+    }
+    catch(err){ showMsg('Errore: '+err.message); console.error(err); }
+    return;
+  }
+  try{
+    const cred=await signInWithEmailAndPassword(auth,emailFromName(name),pw);
+    currentName=name; currentUid=cred.user.uid; isTeacher=false;
+    const snap=await get(ref(db,'users/'+currentUid));
+    if(snap.exists()&&snap.val().name) currentName=snap.val().name;
+    const ps=await get(ref(db,'progress/'+currentUid)); progress=ps.exists()?ps.val():{};
+    const an=await get(ref(db,'answers/'+currentUid)); answers=an.exists()?an.val():[];
+    appReady=false;
+    subscribeCourse();
+    subscribeArgomenti();
+    await new Promise(r=>setTimeout(r,600));
+    appReady=true;
+    hello.textContent='Ciao, '+currentName;
+    renderModules(); renderStudentArgomenti(); showApp();
+  }catch(e){ console.error(e); showMsg('Account non trovato o password errata.'); }
+}
+async function doRegister(){
+  const name=document.getElementById('name').value.trim();
+  const pw=document.getElementById('pw').value;
+  if(!name) return showMsg('Inserisci un nome.');
+  if(!pw||pw.length<4) return showMsg('Password minima 4 caratteri.');
+  if(name.toLowerCase()===TEACHER_NAME) return showMsg('Nome riservato.');
+  try{
+    const email=emailFromName(name);
+    const cred=await createUserWithEmailAndPassword(auth,email,pw);
+    currentName=name; currentUid=cred.user.uid;
+    await set(ref(db,'users/'+currentUid),{name,email});
+    await set(ref(db,'progress/'+currentUid),{});
+    await set(ref(db,'answers/'+currentUid),[]);
+    showMsg('Account creato. Ora accedi.');
+  }catch(e){
+    if(e.code==='auth/email-already-in-use') showMsg('Nome già registrato.');
+    else showMsg(e.message||'Errore registrazione');
+  }
+}
+async function doLogout(){
+  unsubscribeAll();
+  try{ await signOut(auth); }catch(e){}
+  isTeacher=false; currentName=''; currentUid=''; progress={}; answers=[]; currentModule=null;
+  appReady=false; pendingCourseUpdate=null; pendingArgomentiUpdate=null;
+  hideUpdateBanner();
+  document.getElementById('name').value=''; document.getElementById('pw').value='';
+  quizBox.classList.remove('open'); showLogin();
+}
+
+onAuthStateChanged(auth, async(user)=>{
+  if(isTeacher) return;
+  if(user && !user.isAnonymous){
+    currentUid=user.uid;
+    const snap=await get(ref(db,'users/'+currentUid));
+    currentName=snap.exists()?(snap.val().name||user.email):user.email;
+    const ps=await get(ref(db,'progress/'+currentUid)); progress=ps.exists()?ps.val():{};
+    const an=await get(ref(db,'answers/'+currentUid)); answers=an.exists()?an.val():[];
+    appReady=false;
+    subscribeCourse();
+    subscribeArgomenti();
+    await new Promise(r=>setTimeout(r,600));
+    appReady=true;
+    hello.textContent='Ciao, '+currentName;
+    renderModules(); renderStudentArgomenti(); showApp();
+  } else { showLogin(); }
+});
+
+// ─── LISTENERS ────────────────────────────────────────────
+document.getElementById('btnLogin').addEventListener('click', ()=>doLogin());
+document.getElementById('btnRegister').addEventListener('click', ()=>doRegister());
+document.getElementById('name').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
+document.getElementById('pw').addEventListener('keydown',   e=>{ if(e.key==='Enter') doLogin(); });
+document.getElementById('btnLogoutApp').addEventListener('click', ()=>doLogout());
+document.getElementById('btnLogoutTeacher').addEventListener('click', ()=>doLogout());
+document.getElementById('btnSubmitQuiz').addEventListener('click', ()=>submitQuiz());
+document.getElementById('btnAddModule').addEventListener('click', ()=>openAddModule());
+document.getElementById('btnAddDomanda').addEventListener('click', ()=>addDomanda());
+document.getElementById('btnCloseModal').addEventListener('click', ()=>closeModal());
+document.getElementById('btnSaveModule').addEventListener('click', ()=>saveModule());
+document.getElementById('btnAddArgomento').addEventListener('click', ()=>openAddArgomento());
+document.getElementById('btnCloseArgModal').addEventListener('click', ()=>closeArgModal());
+document.getElementById('btnSaveArgomento').addEventListener('click', ()=>saveArgomento());
+document.getElementById('btnConfirmNo').addEventListener('click', ()=>confirmResolve(false));
+document.getElementById('btnConfirmYes').addEventListener('click', ()=>confirmResolve(true));
+</script>
+</body>
+</html>
